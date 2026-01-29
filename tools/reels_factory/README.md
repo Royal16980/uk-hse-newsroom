@@ -27,7 +27,23 @@ py -m pip install -r tools/reels_factory/requirements.txt
 ```
 
 ## 3) Add b-roll
-Put clips into:
+
+### Option A (automated): fetch free stock b-roll from Pexels
+1) Create a Pexels API key (free).
+2) Set it locally (PowerShell) — **do not paste it into chat**:
+
+```powershell
+$env:PEXELS_API_KEY = "<pexels_key>"
+```
+
+3) Download clips into the category folders:
+
+```powershell
+py tools/reels_factory/broll_fetcher.py fetch --category all --count 12
+```
+
+### Option B (manual): drop your own clips
+Put mp4 clips into:
 
 ```
 tools/reels_factory/assets/broll/ladder/
@@ -36,7 +52,7 @@ tools/reels_factory/assets/broll/factory/
 tools/reels_factory/assets/broll/dashboards/
 ```
 
-(You can add more categories; the script will look for a folder matching the script's `broll_category`.)
+(You can add more categories; the renderer looks for a folder matching `broll_category`.)
 
 ## 4) Render a video
 Example (recommended: use the locked voice preset + subtitles):
