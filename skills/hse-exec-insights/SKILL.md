@@ -6,6 +6,7 @@ description: "Create draft-only IG/TikTok/LinkedIn-ready HSE leadership content:
 # HSE Executive Insights (leadership audience)
 
 Audience: senior leadership. Frame everything as: **knowing -> controls -> outcomes** vs **not knowing -> exposure -> cost**.
+Tone default: sharp and provocative (still professional). Prioritize punchy hooks and consequence framing.
 
 Hard rules:
 - Draft-only: do NOT post/send/publish unless Royal explicitly asks.

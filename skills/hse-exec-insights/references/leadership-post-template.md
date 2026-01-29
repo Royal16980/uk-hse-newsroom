@@ -2,8 +2,8 @@
 
 ## Hooks (3)
 1) "If you can't answer this, you're managing risk blind."
-2) "The cost isn't the incident. It's the uncertainty before it."
-3) "Leaders don't need more safety posters. They need better signals."
+2) "The cost isn't the incident. It's what you didn't see coming."
+3) "If your dashboard can't see it, it can't control it."
 
 ## Short version (60-120 words)
 - 1 line: what leaders must know
