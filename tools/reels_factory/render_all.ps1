@@ -12,7 +12,7 @@ if (-not $examples) {
 
 foreach ($ex in $examples) {
   Write-Host "Rendering $($ex.Name)..."
-  py tools/reels_factory/reels_factory.py render $ex.FullName -o $OutDir --preset $Preset
+  py tools/reels_factory/reels_factory.py render $ex.FullName -o $OutDir --preset $Preset --subtitles
 }
 
 Write-Host "Done. Outputs in $OutDir"

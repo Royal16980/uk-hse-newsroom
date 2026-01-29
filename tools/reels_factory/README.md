@@ -39,10 +39,10 @@ tools/reels_factory/assets/broll/dashboards/
 (You can add more categories; the script will look for a folder matching the script's `broll_category`.)
 
 ## 4) Render a video
-Example (recommended: use the locked voice preset):
+Example (recommended: use the locked voice preset + subtitles):
 
 ```powershell
-py tools/reels_factory/reels_factory.py render tools/reels_factory/examples/draft_01_ladder.json -o dist/reels --preset tools/reels_factory/presets/voice_uk_female_calm_punchy.json
+py tools/reels_factory/reels_factory.py render tools/reels_factory/examples/draft_01_ladder.json -o dist/reels --preset tools/reels_factory/presets/voice_uk_female_calm_punchy.json --subtitles
 ```
 
 Outputs:

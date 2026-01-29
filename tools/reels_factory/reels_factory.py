@@ -8,6 +8,7 @@ import subprocess
 import tempfile
 from pathlib import Path
 
+import base64
 import requests
 import imageio_ffmpeg
 
@@ -31,6 +32,7 @@ def must_env(name: str) -> str:
 
 
 def elevenlabs_tts(text: str, out_wav: Path, preset: dict | None = None) -> None:
+    """Legacy fallback: MP3 TTS -> WAV."""
     api_key = must_env("ELEVENLABS_API_KEY")
 
     # If preset provided, prefer it; otherwise fall back to env vars.
@@ -85,17 +87,131 @@ def elevenlabs_tts(text: str, out_wav: Path, preset: dict | None = None) -> None
 
         # Loudness normalize to approx -14 LUFS (social standard)
         # Using a single-pass loudnorm for simplicity.
-        run(
-            [
-                ff,
-                "-y",
-                "-i",
-                str(raw_wav),
-                "-af",
-                "loudnorm=I=-14:LRA=11:TP=-1.5",
-                str(out_wav),
-            ]
-        )
+        run([ff, "-y", "-i", str(raw_wav), "-af", "loudnorm=I=-14:LRA=11:TP=-1.5", str(out_wav)])
+
+
+def elevenlabs_tts_with_timestamps(text: str, preset: dict) -> tuple[bytes, dict] | None:
+    """Preferred: returns (mp3_bytes, alignment_json). Returns None if endpoint not available."""
+    api_key = must_env("ELEVENLABS_API_KEY")
+    voice_id = preset.get("voice_id") or must_env("ELEVENLABS_VOICE_ID")
+    model_id = preset.get("model_id", "eleven_multilingual_v2")
+    voice_settings = preset.get(
+        "voice_settings",
+        {"stability": 0.78, "similarity_boost": 0.90, "style": 0.18, "use_speaker_boost": True},
+    )
+
+    payload = {"text": text, "model_id": model_id, "voice_settings": voice_settings}
+
+    url = f"{ELEVENLABS_BASE}/text-to-speech/{voice_id}/with-timestamps"
+    headers = {"xi-api-key": api_key, "accept": "application/json", "content-type": "application/json"}
+
+    r = requests.post(url, headers=headers, json=payload, timeout=60)
+    if r.status_code == 404 or r.status_code == 400:
+        return None
+    if r.status_code >= 300:
+        # Some plans gate this; fall back.
+        return None
+
+    data = r.json()
+    audio_b64 = data.get("audio_base64") or data.get("audio")
+    if not audio_b64:
+        return None
+    try:
+        mp3_bytes = base64.b64decode(audio_b64)
+    except Exception:
+        return None
+
+    return mp3_bytes, data
+
+
+def srt_timestamp(seconds: float) -> str:
+    ms = int(round(seconds * 1000))
+    h = ms // 3600000
+    ms %= 3600000
+    m = ms // 60000
+    ms %= 60000
+    s = ms // 1000
+    ms %= 1000
+    return f"{h:02d}:{m:02d}:{s:02d},{ms:03d}"
+
+
+def alignment_to_srt(alignment: dict, out_srt: Path, max_chars: int = 32, max_line_seconds: float = 2.4) -> None:
+    """Convert ElevenLabs alignment to SRT.
+
+    ElevenLabs alignment commonly includes:
+    - characters + character_start_times_seconds + character_end_times_seconds
+    We rebuild words and group into readable caption lines.
+    """
+    chars = alignment.get("alignment", {}).get("characters") or alignment.get("characters")
+    starts = alignment.get("alignment", {}).get("character_start_times_seconds") or alignment.get(
+        "character_start_times_seconds"
+    )
+    ends = alignment.get("alignment", {}).get("character_end_times_seconds") or alignment.get(
+        "character_end_times_seconds"
+    )
+    if not (chars and starts and ends) or len(chars) != len(starts) or len(chars) != len(ends):
+        raise ValueError("Unexpected alignment format")
+
+    # Build words as (word, start, end)
+    words = []
+    cur = []
+    w_start = None
+    for ch, st, en in zip(chars, starts, ends):
+        if w_start is None and ch.strip() != "":
+            w_start = float(st)
+        if ch in [" ", "\n", "\t"]:
+            if cur:
+                words.append(("".join(cur), w_start, float(ends_idx)))
+            cur = []
+            w_start = None
+        else:
+            cur.append(ch)
+            ends_idx = en
+
+    if cur:
+        words.append(("".join(cur), w_start if w_start is not None else float(starts[-1]), float(ends[-1])))
+
+    # Group words
+    cues = []
+    line_words = []
+    line_start = None
+    line_end = None
+
+    def flush():
+        nonlocal line_words, line_start, line_end
+        if line_words and line_start is not None and line_end is not None:
+            cues.append((line_start, line_end, " ".join(line_words).strip()))
+        line_words = []
+        line_start = None
+        line_end = None
+
+    for w, st, en in words:
+        if line_start is None:
+            line_start = st
+        candidate = (" ".join(line_words + [w])).strip()
+        candidate_len = len(candidate)
+        candidate_dur = (en - line_start) if line_start is not None else 0
+
+        if (candidate_len > max_chars and line_words) or (candidate_dur > max_line_seconds and line_words):
+            flush()
+            line_start = st
+            line_words = [w]
+            line_end = en
+        else:
+            line_words.append(w)
+            line_end = en
+
+    flush()
+
+    # Write SRT
+    out_srt.parent.mkdir(parents=True, exist_ok=True)
+    lines = []
+    for i, (st, en, txt) in enumerate(cues, start=1):
+        lines.append(str(i))
+        lines.append(f"{srt_timestamp(st)} --> {srt_timestamp(en)}")
+        lines.append(txt)
+        lines.append("")
+    out_srt.write_text("\n".join(lines), encoding="utf-8")
 
 
 def pick_broll_clips(category_dir: Path, seconds_needed: float) -> list[Path]:
@@ -178,6 +294,7 @@ def build_video(
     fps: int,
     font: str,
     safe_margin_px: int,
+    subtitles_srt: Path | None = None,
 ) -> None:
     ff = ffmpeg_path()
 
@@ -271,7 +388,13 @@ def build_video(
 
         vf = ",".join(filters)
 
-        # Mix audio + text overlay
+        # Optional burnt-in subtitles (SRT). Use subtitles filter (libass).
+        if subtitles_srt and subtitles_srt.exists():
+            # Escape backslashes for Windows paths inside ffmpeg filter string.
+            srt_path = str(subtitles_srt).replace("\\", "\\\\")
+            vf = vf + f",subtitles='{srt_path}':force_style='FontName=Arial,FontSize=40,PrimaryColour=&H00FFFFFF,OutlineColour=&H00000000,BorderStyle=1,Outline=2,Shadow=0,MarginV=140'"
+
+        # Mix audio + overlays
         out_mp4.parent.mkdir(parents=True, exist_ok=True)
         run(
             [
@@ -332,13 +455,37 @@ def cmd_render(args: argparse.Namespace) -> None:
         preset_path = Path(args.preset)
         preset = json.loads(preset_path.read_text(encoding="utf-8"))
 
-    # TTS
-    elevenlabs_tts(voice_text, wav_path, preset=preset)
+    # TTS (+ optional subtitles via ElevenLabs timestamps)
+    srt_path = out_dir / f"{slug}.srt"
+
+    if preset and args.subtitles:
+        ts = elevenlabs_tts_with_timestamps(voice_text, preset=preset)
+        if ts:
+            mp3_bytes, meta = ts
+            ff = ffmpeg_path()
+            with tempfile.TemporaryDirectory() as td:
+                td = Path(td)
+                mp3_path = td / "voice.mp3"
+                raw_wav = td / "voice_raw.wav"
+                mp3_path.write_bytes(mp3_bytes)
+
+                run([ff, "-y", "-i", str(mp3_path), str(raw_wav)])
+                run([ff, "-y", "-i", str(raw_wav), "-af", "loudnorm=I=-14:LRA=11:TP=-1.5", str(wav_path)])
+
+            try:
+                alignment_to_srt(meta, srt_path)
+            except Exception:
+                # Render will still work; just without subtitles.
+                pass
+        else:
+            elevenlabs_tts(voice_text, wav_path, preset=preset)
+    else:
+        elevenlabs_tts(voice_text, wav_path, preset=preset)
 
     # Pick b-roll
     broll_category = data.get("broll_category", "general")
     category_dir = Path(__file__).parent / "assets" / "broll" / broll_category
-    duration = AudioSegment.from_wav(wav_path).duration_seconds
+    duration = get_duration_seconds(wav_path)
     broll_paths = pick_broll_clips(category_dir, duration)
 
     # Render
@@ -352,6 +499,7 @@ def cmd_render(args: argparse.Namespace) -> None:
         fps=fps,
         font=font,
         safe_margin_px=safe_margin_px,
+        subtitles_srt=srt_path if (args.subtitles and srt_path.exists()) else None,
     )
 
     print(f"OK: {mp4_path}")
@@ -368,6 +516,11 @@ def main():
         "--preset",
         default=None,
         help="Path to a voice preset JSON (e.g. tools/reels_factory/presets/voice_uk_female_calm_punchy.json)",
+    )
+    r.add_argument(
+        "--subtitles",
+        action="store_true",
+        help="Generate & burn-in subtitles (uses ElevenLabs timestamps when available)",
     )
     r.set_defaults(func=cmd_render)
 
