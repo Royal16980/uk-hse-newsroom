@@ -1,0 +1,24 @@
+{
+  "slug": "01-uk-case-ladder-80k",
+  "title": "UK Case (Ladder fall): £80k fine",
+  "source_url": "https://press.hse.gov.uk/2025/10/28/fine-for-firm-after-worker-fell-from-ladder/",
+  "broll_category": "ladder",
+  "voiceover": {
+    "text": "UK HSE case in 60 seconds. A worker fell from a ladder and suffered serious injuries. HSE found the work at height was not properly planned and the equipment used was not suitable. The company pleaded guilty and was fined eighty thousand pounds, plus costs. This is what leaders should do this week. One: decide when ladders are allowed, and when they are not. Two: make someone accountable for selecting, checking, and approving access equipment. Three: spot check supervision and pre task checks on real jobs. Follow @hse_uk_reporter for UK HSE cases in 60 seconds.",
+    "pace": "calm_authoritative_punchy"
+  },
+  "beats": [
+    {"t": 0.0, "text": "UK HSE case (60s)"},
+    {"t": 3.0, "text": "£80,000 fine"},
+    {"t": 10.0, "text": "Not bad luck — missing control"},
+    {"t": 35.0, "text": "3 leader actions this week"},
+    {"t": 56.0, "text": "Follow @hse_uk_reporter"}
+  ],
+  "style": {
+    "width": 1080,
+    "height": 1920,
+    "fps": 30,
+    "font": "Arial",
+    "safe_margin_px": 80
+  }
+}

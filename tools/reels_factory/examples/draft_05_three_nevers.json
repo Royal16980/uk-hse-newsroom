@@ -1,0 +1,24 @@
+{
+  "slug": "05-three-things-never-do-hse-leader",
+  "title": "Leadership: 3 things I'd never do",
+  "source_url": "",
+  "broll_category": "dashboards",
+  "voiceover": {
+    "text": "Three things I would never do as an HSE leader. Number one. I would never run injuries only reporting. It tells you what already happened. Not what is building. Number two. I would never confuse training with competence. Attendance is not capability. Number three. I would never treat contractor safety as paperwork. If you cannot see supervision and control on site, you do not have it. These look normal right up until they cost you. Follow @hse_uk_reporter.",
+    "pace": "calm_authoritative_punchy"
+  },
+  "beats": [
+    {"t": 0.0, "text": "3 things I'd NEVER do"},
+    {"t": 6.0, "text": "#1 Injuries-only reporting"},
+    {"t": 20.0, "text": "#2 Training ≠ competence"},
+    {"t": 34.0, "text": "#3 Contractors ≠ paperwork"},
+    {"t": 54.0, "text": "Follow @hse_uk_reporter"}
+  ],
+  "style": {
+    "width": 1080,
+    "height": 1920,
+    "fps": 30,
+    "font": "Arial",
+    "safe_margin_px": 80
+  }
+}

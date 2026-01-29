@@ -1,0 +1,25 @@
+{
+  "slug": "02-uk-case-mewp-rescue-plan",
+  "title": "UK Case (MEWP): No rescue plan",
+  "source_url": "https://press.hse.gov.uk/2025/12/09/tree-specialists-fined-after-worker-falls-from-height/",
+  "broll_category": "mewp",
+  "voiceover": {
+    "text": "UK HSE case in 60 seconds. A worker was doing tree surgery from a MEWP basket. The machine stopped while elevated. There was nobody on site who could bring the basket safely to the ground. The worker tried to abseil. He fell over thirty feet and suffered life altering injuries. HSE found failures in planning, supervision, risk assessment, and training. The lesson is simple. If your rescue plan is 'we will figure it out', you do not have one. This week, leaders should do three things. One: demand a rescue plan that works when the equipment fails. Two: name the competent supervisor on the job, and verify they are actually there. Three: confirm training and method statements are understood, not just signed. Follow @hse_uk_reporter for UK HSE cases in 60 seconds.",
+    "pace": "calm_authoritative_punchy"
+  },
+  "beats": [
+    {"t": 0.0, "text": "UK HSE case (60s)"},
+    {"t": 4.0, "text": "MEWP stopped."},
+    {"t": 10.0, "text": "No rescue plan."},
+    {"t": 18.0, "text": "People improvise."},
+    {"t": 40.0, "text": "3 non-negotiables"},
+    {"t": 56.0, "text": "Follow @hse_uk_reporter"}
+  ],
+  "style": {
+    "width": 1080,
+    "height": 1920,
+    "fps": 30,
+    "font": "Arial",
+    "safe_margin_px": 80
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "slug": "04-leadership-dashboard-lying",
+  "title": "Leadership: your safety dashboard is lying",
+  "source_url": "",
+  "broll_category": "dashboards",
+  "voiceover": {
+    "text": "Your safety dashboard is lying to you. If your dashboard starts with injuries, you are already too late. Injuries are lagging indicators. They measure damage. Not exposure. If you want control, track what builds risk before somebody gets hurt. Three signals to demand weekly. One: overdue safety critical corrective actions. If fixes are late, exposure is growing. Two: near miss quality, not just the count. If reports are vague, you are blind. Three: contractor control. Who is supervising. And what is actually being checked. Here is the leader move. Ask for evidence, not reassurance. Follow @hse_uk_reporter for leadership level HSE content.",
+    "pace": "calm_authoritative_punchy"
+  },
+  "beats": [
+    {"t": 0.0, "text": "Your dashboard is lying"},
+    {"t": 6.0, "text": "Lagging ≠ leading"},
+    {"t": 16.0, "text": "Track exposure"},
+    {"t": 22.0, "text": "3 signals weekly"},
+    {"t": 52.0, "text": "Follow @hse_uk_reporter"}
+  ],
+  "style": {
+    "width": 1080,
+    "height": 1920,
+    "fps": 30,
+    "font": "Arial",
+    "safe_margin_px": 80
+  }
+}

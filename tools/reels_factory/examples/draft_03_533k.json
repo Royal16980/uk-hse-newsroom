@@ -1,0 +1,25 @@
+{
+  "slug": "03-uk-case-533k-night-shift-blind-spot",
+  "title": "UK Case: £533k fine (night shift blind spot)",
+  "source_url": "https://press.hse.gov.uk/2025/05/06/firm-fined-more-than-500000-after-shift-worker-fell-to-his-death/",
+  "broll_category": "factory",
+  "voiceover": {
+    "text": "UK HSE case in 60 seconds. A night shift worker tried to clear a blockage on a production line. He accessed an area beyond guarding. Part of the machine was activated. He was struck, lost his footing, and fell about three metres. He died at the scene. HSE found the company did not have a robust safe system of work for isolation and clearing blockages. And workers were routinely taking shortcuts, including climbing over handrails and using equipment as a walkway. Management did not know it was happening. The company was fined five hundred and thirty three thousand pounds. Here is the leadership lesson. If night shift is out of sight, it becomes out of control. This week, ask three questions. Where do people bypass guarding to get it done. Who verifies isolation on shift. And what workarounds have we quietly normalised. Follow @hse_uk_reporter for UK HSE cases in 60 seconds.",
+    "pace": "calm_authoritative_punchy"
+  },
+  "beats": [
+    {"t": 0.0, "text": "UK HSE case (60s)"},
+    {"t": 3.0, "text": "£533,000 fine"},
+    {"t": 10.0, "text": "Night shift blind spot"},
+    {"t": 18.0, "text": "Routine shortcuts"},
+    {"t": 42.0, "text": "Ask these 3 questions"},
+    {"t": 56.0, "text": "Follow @hse_uk_reporter"}
+  ],
+  "style": {
+    "width": 1080,
+    "height": 1920,
+    "fps": 30,
+    "font": "Arial",
+    "safe_margin_px": 80
+  }
+}
