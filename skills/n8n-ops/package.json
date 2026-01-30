@@ -1,0 +1,5 @@
+{
+  "name": "n8n-ops",
+  "private": true,
+  "type": "module"
+}
