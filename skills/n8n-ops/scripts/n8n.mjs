@@ -32,15 +32,27 @@ function url(path) {
   return `${BASE}${path}`;
 }
 
+function buildAuthHeaders() {
+  // n8n supports multiple auth modes depending on deployment:
+  // - Personal API key: X-N8N-API-KEY: <key>
+  // - Some tokens/JWTs: Authorization: Bearer <token>
+  //
+  // Some installs require X-N8N-API-KEY even if the key is JWT-shaped.
+  // Safe default: send X-N8N-API-KEY always, and also send Authorization when it looks like a JWT.
+  const looksJwt = typeof KEY === 'string' && KEY.split('.').length === 3;
+  return {
+    'X-N8N-API-KEY': KEY,
+    ...(looksJwt ? { Authorization: `Bearer ${KEY}` } : {})
+  };
+}
+
 async function req(method, path, { body, headers } = {}) {
   const res = await fetch(url(path), {
     method,
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
-      // n8n personal API key header (common): X-N8N-API-KEY
-      // Some setups also accept: Authorization: Bearer <key>
-      'X-N8N-API-KEY': KEY,
+      ...buildAuthHeaders(),
       ...(headers || {})
     },
     body: body === undefined ? undefined : JSON.stringify(body),
@@ -82,9 +94,33 @@ async function main() {
   switch (cmd) {
     case 'workflows:list': {
       // GET /api/v1/workflows
-      const out = await req('GET', '/api/v1/workflows');
-      console.log(JSON.stringify(out, null, 2));
-      return;
+      // Supports pagination cursors (nextCursor).
+      const all = !!args.all;
+
+      let cursor;
+      let page = 0;
+      const items = [];
+
+      while (true) {
+        page += 1;
+        const path = cursor
+          ? `/api/v1/workflows?cursor=${encodeURIComponent(cursor)}`
+          : '/api/v1/workflows';
+
+        const out = await req('GET', path);
+
+        // n8n commonly returns { data: [...], nextCursor: "..." }
+        const data = Array.isArray(out?.data) ? out.data : Array.isArray(out) ? out : [];
+        if (data.length) items.push(...data);
+
+        cursor = out?.nextCursor;
+        if (!all || !cursor) {
+          console.log(JSON.stringify(all ? { data: items } : out, null, 2));
+          return;
+        }
+
+        if (page > 200) die('Pagination safety stop (too many pages).');
+      }
     }
 
     case 'workflows:get': {
@@ -92,6 +128,34 @@ async function main() {
       if (!id) die('Missing --id');
       const out = await req('GET', `/api/v1/workflows/${id}`);
       console.log(JSON.stringify(out, null, 2));
+      return;
+    }
+
+    case 'workflows:search': {
+      const q = (args.query || args.q || '').toString().trim().toLowerCase();
+      if (!q) die('Missing --query');
+
+      // Pull all workflows and filter client-side (fast enough for most instances).
+      const out = await req('GET', '/api/v1/workflows');
+      const firstPage = Array.isArray(out?.data) ? out.data : [];
+      let cursor = out?.nextCursor;
+      const all = [...firstPage];
+
+      let page = 1;
+      while (cursor) {
+        page += 1;
+        const pageOut = await req('GET', `/api/v1/workflows?cursor=${encodeURIComponent(cursor)}`);
+        const pageData = Array.isArray(pageOut?.data) ? pageOut.data : [];
+        all.push(...pageData);
+        cursor = pageOut?.nextCursor;
+        if (page > 200) die('Pagination safety stop (too many pages).');
+      }
+
+      const hits = all
+        .filter(w => (w?.name || '').toString().toLowerCase().includes(q) || (w?.id || '').toString().toLowerCase() === q)
+        .map(w => ({ id: w.id, name: w.name, active: w.active, updatedAt: w.updatedAt }));
+
+      console.log(JSON.stringify({ query: q, count: hits.length, hits }, null, 2));
       return;
     }
 
@@ -159,7 +223,8 @@ async function main() {
       die(
         `Unknown command: ${cmd}\n\n` +
         `Commands:\n` +
-        `  workflows:list\n` +
+        `  workflows:list [--all]\n` +
+        `  workflows:search --query "<text>"\n` +
         `  workflows:get --id <id>\n` +
         `  workflows:create --file <workflow.json>\n` +
         `  workflows:update --id <id> --file <workflow.json>\n` +

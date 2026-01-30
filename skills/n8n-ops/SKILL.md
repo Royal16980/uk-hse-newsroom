@@ -44,6 +44,16 @@ These are implemented by `scripts/n8n.mjs`.
 node skills/n8n-ops/scripts/n8n.mjs workflows:list
 ```
 
+List **all** workflows (auto-paginate):
+```bash
+node skills/n8n-ops/scripts/n8n.mjs workflows:list --all
+```
+
+### Search workflows by name
+```bash
+node skills/n8n-ops/scripts/n8n.mjs workflows:search --query "HSE Reporter"
+```
+
 ### Get workflow by id
 ```bash
 node skills/n8n-ops/scripts/n8n.mjs workflows:get --id 123
