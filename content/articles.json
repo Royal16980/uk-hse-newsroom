@@ -1,0 +1,32 @@
+{
+  "generatedAt": "2026-02-06T13:30:00Z",
+  "source": "seed",
+  "articles": [
+    {
+      "id": "seed-hse-uk-1",
+      "title": "UK workplace safety: what changed in 2025 and what to watch in 2026",
+      "deck": "A practical briefing on HSE enforcement trends, common failings, and how to stay audit-ready.",
+      "url": "https://www.hse.gov.uk/",
+      "source": "HSE",
+      "publishedAt": "2026-02-06T08:00:00Z",
+      "tags": ["UK", "Compliance", "HSE"],
+      "image": {
+        "alt": "Safety helmet on a desk",
+        "credit": "UK HSE Newsroom"
+      }
+    },
+    {
+      "id": "seed-hse-uk-2",
+      "title": "Near-miss reporting: the fastest way to reduce serious incidents",
+      "deck": "How to build a reporting culture that employees actually use — without drowning in paperwork.",
+      "url": "https://www.hse.gov.uk/",
+      "source": "Guidance",
+      "publishedAt": "2026-02-05T12:00:00Z",
+      "tags": ["Risk", "Culture", "Leadership"],
+      "image": {
+        "alt": "Worker filling a checklist",
+        "credit": "UK HSE Newsroom"
+      }
+    }
+  ]
+}
