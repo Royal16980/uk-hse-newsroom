@@ -1,5 +1,7 @@
 import Link from 'next/link';
 import { Shell } from '@/components/Shell';
+import { StoryCard } from '@/components/StoryCard';
+import { StoryMini } from '@/components/StoryMini';
 import { getFeed } from '@/lib/articles';
 
 function Tag({ children }: { children: React.ReactNode }) {
@@ -56,10 +58,7 @@ export default async function HomePage() {
             </div>
             <div className="mt-5 space-y-4">
               {rest.slice(0, 5).map((a) => (
-                <Link key={a.id} className="block group" href={`/story/${a.id}`}>
-                  <div className="text-sm font-semibold group-hover:underline">{a.title}</div>
-                  <div className="mt-1 text-xs text-slate-600">{a.source ?? 'Source'} · {a.publishedAt ? new Date(a.publishedAt).toLocaleDateString('en-GB') : ''}</div>
-                </Link>
+                <StoryMini key={a.id} article={a} />
               ))}
             </div>
           </div>
@@ -74,25 +73,25 @@ export default async function HomePage() {
               See all
             </Link>
           </div>
-          <div className="mt-4 rounded-2xl border border-slate-200 p-6">
-            <div className="flex flex-wrap gap-2">
-              {(lead.tags || []).slice(0, 4).map((t) => (
-                <Tag key={t}>{t}</Tag>
-              ))}
-            </div>
-            <h3 className="mt-3 text-2xl font-black tracking-tight">
-              <Link href={`/story/${lead.id}`} className="hover:underline">
-                {lead.title}
-              </Link>
-            </h3>
-            {lead.deck ? <p className="mt-2 max-w-prose text-slate-700">{lead.deck}</p> : null}
-            <div className="mt-4 flex items-center justify-between text-xs text-slate-600">
-              <span>{lead.source ?? 'Source'}</span>
-              <span>{lead.publishedAt ? new Date(lead.publishedAt).toLocaleString('en-GB') : ''}</span>
-            </div>
+          <div className="mt-4">
+            <StoryCard article={lead} variant="lead" />
           </div>
         </section>
       ) : null}
+
+      <section className="mt-10">
+        <div className="flex items-end justify-between">
+          <h2 className="text-lg font-black tracking-tight">More stories</h2>
+          <Link className="text-sm text-slate-700 hover:underline" href="/briefing">
+            Browse
+          </Link>
+        </div>
+        <div className="mt-4 grid gap-4">
+          {rest.slice(0, 6).map((a) => (
+            <StoryCard key={a.id} article={a} />
+          ))}
+        </div>
+      </section>
 
       <section className="mt-12 grid gap-6 md:grid-cols-3">
         {[
