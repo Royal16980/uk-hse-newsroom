@@ -25,16 +25,19 @@ export function CaptionLine({
       style={{
         transform: `translateY(${fromY}px) scale(${pop})`,
       }}
-      className="mx-auto max-w-[920px] rounded-2xl bg-black/70 px-6 py-4"
+      className="mx-auto max-w-[980px] rounded-2xl border border-white/10 bg-black/75 px-6 py-4 shadow-[0_12px_40px_rgba(0,0,0,0.45)] backdrop-blur"
     >
-      <div className="flex flex-wrap gap-x-2 gap-y-1 text-[44px] font-black leading-[1.05] tracking-tight text-white">
+      <div className="flex flex-wrap gap-x-2 gap-y-2 text-[44px] font-black leading-[1.05] tracking-tight text-white">
         {visible.map((c, idx) => {
           const active = t >= c.start && t <= c.end;
           return (
             <span
               key={`${c.start}-${idx}`}
+              className="rounded-xl px-2 py-1"
               style={{
-                opacity: active ? 1 : 0.72,
+                background: active ? 'rgba(255,255,255,0.14)' : 'rgba(255,255,255,0.08)',
+                opacity: active ? 1 : 0.82,
+                textShadow: '0 2px 10px rgba(0,0,0,0.55)',
               }}
             >
               {c.w}

@@ -51,7 +51,14 @@ Deliverables:
 - Animation primitives (spring/interpolate)
 - Text styles + safe zones
 
-### 5) Producer / QA
+### 5) Editor (Trends + Retention)
+Deliverables:
+- Hook polish (first 1.5s): punchier wording, pattern interrupt
+- Trend alignment (current editing/UI patterns): big type, kinetic emphasis, readable captions, high contrast
+- Retention pass: remove weak beats, tighten phrasing, reorder for momentum
+- On-screen text rewrite: fewer words, more impact
+
+### 6) Producer / QA
 Deliverables:
 - Render commands
 - Checks: spelling, contrast, safe-area, loudness, captions readability

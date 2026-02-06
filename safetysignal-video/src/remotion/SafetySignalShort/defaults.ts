@@ -2,7 +2,7 @@ import type { SafetySignalProps } from './types';
 import { generateCaptionsFromText } from './captions';
 
 const VO_TEXT =
-  'Stop treating near-misses like paperwork. In the UK, the fastest route to fewer serious incidents is a reporting culture people actually use. Three moves: make reporting frictionless, respond within 24 hours, and publish the fixes. This week: pick one high-risk task, run a five-minute near-miss stand-down, and implement one control change. Follow SafetySignal UK for practical health and safety leadership.';
+  "Quick one: stop treating near-misses like paperwork. In the UK, your fastest route to fewer serious incidents is a reporting culture people actually use. Three moves: make reporting stupid-easy, respond within 24 hours, and show the fixes so people know it mattered. This week: pick one high-risk task, do a five-minute near-miss stand-down, and change one control for real. Follow SafetySignal UK for practical health and safety leadership.";
 
 export const DEFAULT_VO_SECONDS = 24;
 
