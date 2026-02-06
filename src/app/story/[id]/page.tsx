@@ -3,8 +3,8 @@ import { notFound } from 'next/navigation';
 import { Shell } from '@/components/Shell';
 import { getArticleById } from '@/lib/articles';
 
-export default function StoryPage({ params }: { params: { id: string } }) {
-  const a = getArticleById(params.id);
+export default async function StoryPage({ params }: { params: { id: string } }) {
+  const a = await getArticleById(params.id);
   if (!a) return notFound();
 
   return (

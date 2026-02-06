@@ -10,8 +10,8 @@ function Tag({ children }: { children: React.ReactNode }) {
   );
 }
 
-export default function HomePage() {
-  const feed = getFeed();
+export default async function HomePage() {
+  const feed = await getFeed();
   const [lead, ...rest] = feed.articles;
 
   return (

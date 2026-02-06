@@ -2,8 +2,8 @@ import { Shell } from '@/components/Shell';
 import { getFeed } from '@/lib/articles';
 import Link from 'next/link';
 
-export default function BriefingPage() {
-  const feed = getFeed();
+export default async function BriefingPage() {
+  const feed = await getFeed();
 
   return (
     <Shell>

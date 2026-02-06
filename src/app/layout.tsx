@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: 'UK HSE Newsroom',
   description:
     'BBC-style health & safety briefing for the UK: enforcement, guidance, incident learnings, and practical leadership actions.',
-  metadataBase: new URL('https://example.com'),
+  metadataBase: new URL('https://uk-hse-newsroom.vercel.app'),
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
