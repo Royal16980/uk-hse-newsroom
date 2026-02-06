@@ -21,8 +21,8 @@ export function Shell({ children }: { children: React.ReactNode }) {
                 <span className="h-3 w-3 bg-[var(--brand)]" />
               </div>
               <div className="leading-tight">
-                <div className="font-black tracking-tight">UK HSE Newsroom</div>
-                <div className="text-xs text-slate-600">Practical health & safety, UK-first</div>
+                <div className="font-black tracking-tight">SafetySignal UK</div>
+                <div className="text-xs text-slate-600">UK-first health & safety — distilled</div>
               </div>
             </Link>
 

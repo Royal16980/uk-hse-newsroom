@@ -1,18 +1,19 @@
 {
-  "generatedAt": "2026-02-06T13:30:00Z",
+  "generatedAt": "2026-02-06T15:55:00Z",
   "source": "seed",
   "articles": [
     {
       "id": "seed-hse-uk-1",
       "title": "UK workplace safety: what changed in 2025 and what to watch in 2026",
-      "deck": "A practical briefing on HSE enforcement trends, common failings, and how to stay audit-ready.",
+      "deck": "A practical briefing on enforcement trends, common failings, and how to stay audit-ready.",
       "url": "https://www.hse.gov.uk/",
       "source": "HSE",
       "publishedAt": "2026-02-06T08:00:00Z",
       "tags": ["UK", "Compliance", "HSE"],
       "image": {
-        "alt": "Safety helmet on a desk",
-        "credit": "UK HSE Newsroom"
+        "url": "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1600&q=80",
+        "alt": "Safety helmet and gloves on a workbench",
+        "credit": "Unsplash"
       }
     },
     {
@@ -24,8 +25,23 @@
       "publishedAt": "2026-02-05T12:00:00Z",
       "tags": ["Risk", "Culture", "Leadership"],
       "image": {
-        "alt": "Worker filling a checklist",
-        "credit": "UK HSE Newsroom"
+        "url": "https://images.unsplash.com/photo-1582719478185-2f8b3f9e5b4c?auto=format&fit=crop&w=1600&q=80",
+        "alt": "Clipboard checklist with pen",
+        "credit": "Unsplash"
+      }
+    },
+    {
+      "id": "seed-hse-uk-3",
+      "title": "RAMS, COSHH, CDM: the 3 documents that fail most audits (and how to fix them)",
+      "deck": "A fast, practical pass through the usual audit tripwires — written for busy site leadership.",
+      "url": "https://www.hse.gov.uk/",
+      "source": "SafetySignal",
+      "publishedAt": "2026-02-04T09:30:00Z",
+      "tags": ["CDM", "COSHH", "RAMS"],
+      "image": {
+        "url": "https://images.unsplash.com/photo-1521791055366-0d553872125f?auto=format&fit=crop&w=1600&q=80",
+        "alt": "People reviewing documents in an office",
+        "credit": "Unsplash"
       }
     }
   ]

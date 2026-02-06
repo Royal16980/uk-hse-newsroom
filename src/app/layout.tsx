@@ -2,9 +2,9 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'UK HSE Newsroom',
+  title: 'SafetySignal UK',
   description:
-    'BBC-style health & safety briefing for the UK: enforcement, guidance, incident learnings, and practical leadership actions.',
+    'A modern UK health & safety newsroom: enforcement, guidance, incident learnings, and practical actions for leaders.',
   metadataBase: new URL('https://uk-hse-newsroom.vercel.app'),
 };
 

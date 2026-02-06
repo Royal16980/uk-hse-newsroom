@@ -25,7 +25,7 @@ export default async function HomePage() {
               <Tag>Daily Brief</Tag>
             </div>
             <h1 className="mt-4 text-3xl font-black tracking-tight md:text-4xl">
-              A BBC-style HSE briefing — built for leaders who need clarity, not noise.
+              UK health & safety, with signal over noise.
             </h1>
             <p className="mt-3 max-w-prose text-slate-700">
               We watch enforcement, guidance updates, incident learnings and sector signals — then distill it into
