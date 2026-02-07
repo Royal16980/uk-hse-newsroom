@@ -13,6 +13,8 @@ export type Article = {
     alt?: string;
     credit?: string;
     url?: string;
+    /** Optional attribution URL (photographer/profile). */
+    creditUrl?: string;
   };
 };
 
@@ -26,9 +28,23 @@ const CONTENT_PATH = path.join(process.cwd(), 'content', 'articles.json');
 const DEFAULT_REMOTE_FEED =
   'https://raw.githubusercontent.com/Royal16980/uk-hse-newsroom/master/content/articles.json';
 
+function unsplashFallback(tags?: string[], title?: string) {
+  const q = encodeURIComponent([...(tags || []), title || ''].join(' ').trim() || 'workplace safety');
+  // Source endpoint: no key required. Returns a random image for the query.
+  return `https://source.unsplash.com/1600x900/?${q}`;
+}
+
 function normalize(feed: ArticleFeed): ArticleFeed {
   feed.articles = (feed.articles || [])
     .filter(Boolean)
+    .map((a) => {
+      // Ensure every story has an image for a professional newsroom look.
+      if (!a.image) a.image = {};
+      if (!a.image.url) a.image.url = unsplashFallback(a.tags, a.title);
+      if (!a.image.credit) a.image.credit = 'Unsplash';
+      if (!a.image.alt) a.image.alt = a.title;
+      return a;
+    })
     .sort((a, b) => {
       const ad = a.publishedAt ? Date.parse(a.publishedAt) : 0;
       const bd = b.publishedAt ? Date.parse(b.publishedAt) : 0;

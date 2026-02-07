@@ -4,10 +4,12 @@ export function ArticleImage({
   src,
   alt,
   credit,
+  creditUrl,
 }: {
   src?: string;
   alt?: string;
   credit?: string;
+  creditUrl?: string;
 }) {
   if (!src) return null;
 
@@ -24,7 +26,16 @@ export function ArticleImage({
         />
       </div>
       {credit ? (
-        <figcaption className="px-4 py-2 text-xs text-slate-600">Image: {credit}</figcaption>
+        <figcaption className="px-4 py-2 text-xs text-slate-600">
+          Image:{' '}
+          {creditUrl ? (
+            <a className="underline" href={creditUrl} target="_blank" rel="noreferrer">
+              {credit}
+            </a>
+          ) : (
+            credit
+          )}
+        </figcaption>
       ) : null}
     </figure>
   );

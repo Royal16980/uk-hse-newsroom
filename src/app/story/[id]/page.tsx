@@ -21,7 +21,7 @@ export default async function StoryPage({ params }: { params: { id: string } }) 
         </div>
 
         <div className="mt-8">
-          <ArticleImage src={a.image?.url} alt={a.image?.alt} credit={a.image?.credit} />
+          <ArticleImage src={a.image?.url} alt={a.image?.alt} credit={a.image?.credit} creditUrl={a.image?.creditUrl} />
         </div>
 
         <div className="mt-8 rounded-2xl border border-slate-200 p-6">

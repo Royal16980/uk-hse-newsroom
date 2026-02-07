@@ -12,7 +12,12 @@ export function StoryCard({ article, variant = 'grid' }: { article: Article; var
       <div className="rounded-2xl border border-slate-200 overflow-hidden">
         {article.image?.url ? (
           <div className="p-4">
-            <ArticleImage src={article.image.url} alt={article.image.alt} credit={article.image.credit} />
+            <ArticleImage
+              src={article.image.url}
+              alt={article.image.alt}
+              credit={article.image.credit}
+              creditUrl={article.image.creditUrl}
+            />
           </div>
         ) : null}
         <div className="px-6 pb-6">
