@@ -42,8 +42,8 @@ export function StoryCard({ article, variant = 'grid' }: { article: Article; var
   }
 
   return (
-    <div className="rounded-2xl border border-slate-200 p-5 hover:bg-slate-50 transition-colors">
-      <div className="text-xs font-semibold text-slate-500">{article.source ?? 'Source'}</div>
+    <div className="rounded-2xl border border-[rgb(var(--border))] bg-[rgb(var(--bg))] p-5 transition hover:-translate-y-[1px] hover:shadow-[var(--shadow-card)]">
+      <div className="text-xs font-semibold text-[rgb(var(--muted-2))]">{article.source ?? 'Source'}</div>
       <div className="mt-2 grid grid-cols-12 gap-4">
         <div className="col-span-8">
           <div className="text-lg font-black tracking-tight">
@@ -51,7 +51,7 @@ export function StoryCard({ article, variant = 'grid' }: { article: Article; var
               {article.title}
             </Link>
           </div>
-          {article.deck ? <div className="mt-1 text-sm text-slate-700">{article.deck}</div> : null}
+          {article.deck ? <div className="mt-1 text-sm leading-relaxed text-[rgb(var(--muted))]">{article.deck}</div> : null}
           <div className="mt-3 flex flex-wrap gap-2">
             {(article.tags || []).slice(0, 3).map((t) => (
               <TagLink key={t} tag={t} />

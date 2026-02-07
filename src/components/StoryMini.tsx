@@ -20,7 +20,7 @@ export function StoryMini({ article }: { article: Article }) {
       </div>
       <div className="col-span-8">
         <div className="text-sm font-semibold group-hover:underline">{article.title}</div>
-        <div className="mt-1 text-xs text-slate-600">
+        <div className="mt-1 text-xs text-[rgb(var(--muted))]">
           {article.source ?? 'Source'}
           {article.publishedAt ? ` · ${new Date(article.publishedAt).toLocaleDateString('en-GB')}` : ''}
         </div>
