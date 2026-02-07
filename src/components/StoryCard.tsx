@@ -2,13 +2,7 @@ import Link from 'next/link';
 import { ArticleImage } from '@/components/ArticleImage';
 import type { Article } from '@/lib/articles';
 
-function Tag({ children }: { children: React.ReactNode }) {
-  return (
-    <span className="inline-flex items-center rounded-full border border-slate-200 bg-slate-50 px-2 py-0.5 text-[11px] font-semibold text-slate-700">
-      {children}
-    </span>
-  );
-}
+import { TagLink } from '@/components/TagLink';
 
 export function StoryCard({ article, variant = 'grid' }: { article: Article; variant?: 'grid' | 'lead' }) {
   const href = `/story/${article.id}`;
@@ -24,7 +18,7 @@ export function StoryCard({ article, variant = 'grid' }: { article: Article; var
         <div className="px-6 pb-6">
           <div className="flex flex-wrap gap-2">
             {(article.tags || []).slice(0, 4).map((t) => (
-              <Tag key={t}>{t}</Tag>
+              <TagLink key={t} tag={t} />
             ))}
           </div>
           <h3 className="mt-3 text-2xl font-black tracking-tight">
@@ -55,7 +49,7 @@ export function StoryCard({ article, variant = 'grid' }: { article: Article; var
           {article.deck ? <div className="mt-1 text-sm text-slate-700">{article.deck}</div> : null}
           <div className="mt-3 flex flex-wrap gap-2">
             {(article.tags || []).slice(0, 3).map((t) => (
-              <Tag key={t}>{t}</Tag>
+              <TagLink key={t} tag={t} />
             ))}
           </div>
           <div className="mt-3 text-xs text-slate-600">

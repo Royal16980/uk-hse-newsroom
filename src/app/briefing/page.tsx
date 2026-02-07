@@ -1,4 +1,5 @@
 import { Shell } from '@/components/Shell';
+import { StoryCard } from '@/components/StoryCard';
 import { getFeed } from '@/lib/articles';
 import Link from 'next/link';
 
@@ -15,18 +16,7 @@ export default async function BriefingPage() {
 
         <div className="mt-8 grid gap-4">
           {feed.articles.map((a) => (
-            <Link
-              key={a.id}
-              href={`/story/${a.id}`}
-              className="rounded-2xl border border-slate-200 p-5 hover:bg-slate-50"
-            >
-              <div className="text-xs font-semibold text-slate-500">{a.source ?? 'Source'}</div>
-              <div className="mt-1 text-lg font-black tracking-tight">{a.title}</div>
-              {a.deck ? <div className="mt-1 text-sm text-slate-700">{a.deck}</div> : null}
-              <div className="mt-3 text-xs text-slate-600">
-                {a.publishedAt ? new Date(a.publishedAt).toLocaleString('en-GB') : ''}
-              </div>
-            </Link>
+            <StoryCard key={a.id} article={a} />
           ))}
         </div>
       </div>
