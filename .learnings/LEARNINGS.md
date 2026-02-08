@@ -26,3 +26,27 @@ We had production webhook URLs like `/webhook/bsmb-events` returning 404 "not re
 
 ---
 
+## [LRN-20260208-002] correction / operating_principle
+
+**Logged**: 2026-02-08T20:56:46Z
+**Priority**: high
+**Status**: pending
+**Area**: config
+
+### Summary
+Default to autonomous best-decision-making; avoid repeatedly asking the user operational routing questions.
+
+### Details
+User feedback: operational questions (e.g., “A or B?” for routing) waste time. The agent should choose the best default autonomously, keep a local log, and only ask when credentials/risk/high-impact decisions are required.
+
+### Suggested Action
+- Adopt default policy: auto-escalate to premium model only on high-complexity/high-stakes tasks; otherwise use a cheap manager brain.
+- Maintain a local decision log when switching brains/escalating (memory + .learnings).
+- Only ask the user when a decision is irreversible, risky, or requires user-provided secrets.
+
+### Metadata
+- Source: user_feedback
+- Tags: autonomy, routing, cost-efficiency
+
+---
+
