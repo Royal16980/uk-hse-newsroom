@@ -1,0 +1,77 @@
+{
+  "name": "BSMB Event Bus (v1)",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "bsmb-events",
+        "httpMethod": "POST",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "id": "webhook",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        260,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Minimal validation + normalisation.\n// Expect a shared secret header: x-bsmb-token.\n\nconst token = ($json?.headers?.['x-bsmb-token'] || $json?.headers?.['X-BSMB-Token'] || '').toString();\nconst expected = $env.BSMB_EVENT_TOKEN || '';\nif (expected && token !== expected) {\n  throw new Error('unauthorized');\n}\n\nconst body = $json.body ?? $json;\n\nfunction asIso(v){\n  try { return new Date(v || Date.now()).toISOString(); } catch { return new Date().toISOString(); }\n}\n\nconst ev = {\n  ts: asIso(body.ts),\n  source: (body.source || 'unknown').toString(),\n  type: (body.type || 'info').toString(),\n  severity: (body.severity || 'info').toString(),\n  objective: body.objective || null,\n  title: (body.title || 'Untitled event').toString().slice(0,160),\n  detail: (body.detail || '').toString().slice(0,2000),\n  links: Array.isArray(body.links) ? body.links.slice(0,10) : [],\n  meta: typeof body.meta === 'object' && body.meta ? body.meta : {}\n};\n\nreturn [{ json: ev }];"
+      },
+      "id": "normalize",
+      "name": "Normalize Event",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        520,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={\n  ok: true,\n  received: $json\n}",
+        "options": {}
+      },
+      "id": "respond",
+      "name": "Respond",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        780,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Normalize Event",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalize Event": {
+      "main": [
+        [
+          {
+            "node": "Respond",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  }
+}
