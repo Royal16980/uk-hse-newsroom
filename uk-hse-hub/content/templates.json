@@ -1,0 +1,23 @@
+{
+  "templates": [
+    {
+      "slug": "risk-assessment-template",
+      "title": "Free Risk Assessment Template (UK)",
+      "excerpt": "Simple, editable risk assessment template for UK workplaces — plus guidance on how to complete it.",
+      "topic": "risk-assessment",
+      "format": "DOCX/PDF",
+      "updated": "2026-02-08",
+      "includes": [
+        "Hazards + who might be harmed",
+        "Existing controls + further actions",
+        "Owner + due date",
+        "Review date"
+      ],
+      "gate": {
+        "enabled": true,
+        "fields": ["email"],
+        "consentText": "We’ll email the download link and occasional practical updates. Unsubscribe anytime."
+      }
+    }
+  ]
+}

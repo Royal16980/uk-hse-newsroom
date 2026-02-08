@@ -1,0 +1,21 @@
+{
+  "topics": [
+    {
+      "slug": "risk-assessment",
+      "title": "Risk Assessments",
+      "intro": "Plain-English UK guidance on writing risk assessments, common mistakes, and ready-to-use templates.",
+      "startHere": ["risk-assessment-uk-basics"],
+      "topTemplates": ["risk-assessment-template"],
+      "faq": [
+        {
+          "q": "Do I legally need a written risk assessment?",
+          "a": "Often yes in practice — especially if you have employees or higher-risk work. Even when not strictly required, recording your assessment is usually the quickest way to prove you’ve done it properly."
+        },
+        {
+          "q": "How often should I review it?",
+          "a": "Review when something changes (process, people, equipment, substances, layout) or after an incident/near miss. Otherwise set a sensible review date (e.g., annually)."
+        }
+      ]
+    }
+  ]
+}

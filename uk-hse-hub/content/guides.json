@@ -1,0 +1,25 @@
+{
+  "guides": [
+    {
+      "slug": "risk-assessment-uk-basics",
+      "title": "Risk Assessment (UK): A Practical Beginner’s Guide",
+      "excerpt": "What a UK risk assessment is, who needs one, and how to write a simple one that actually helps.",
+      "topic": "risk-assessment",
+      "updated": "2026-02-08",
+      "readingMinutes": 8,
+      "body": [
+        "A risk assessment is a practical way to identify what could cause harm at work and decide what controls are reasonable.",
+        "In the UK, the expectation is that you assess risks and take sensible measures to control them — then keep it under review.",
+        "This guide walks you through a simple, repeatable approach and links to a template you can download."
+      ],
+      "checklist": [
+        "Describe the task and the setting",
+        "Identify hazards (things that can cause harm)",
+        "Decide who might be harmed and how",
+        "Decide controls (eliminate/substitute/engineering/admin/PPE)",
+        "Record and communicate",
+        "Review after changes/incidents"
+      ]
+    }
+  ]
+}
