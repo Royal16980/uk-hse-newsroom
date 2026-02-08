@@ -54,6 +54,21 @@ export function getTopics(): Topic[] {
   return readJson<{ topics: Topic[] }>("topics.json").topics;
 }
 
+export type NewsItem = {
+  id: string;
+  title: string;
+  url: string;
+  source: string;
+  published: string;
+  topic?: string;
+  summary?: string;
+  actions?: string[];
+};
+
+export function getNews(): NewsItem[] {
+  return readJson<{ items: NewsItem[] }>("news.json").items;
+}
+
 export function findGuide(slug: string): Guide | undefined {
   return getGuides().find((g) => g.slug === slug);
 }

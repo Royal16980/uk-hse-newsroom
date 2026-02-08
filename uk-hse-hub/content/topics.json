@@ -16,6 +16,32 @@
           "a": "Review when something changes (process, people, equipment, substances, layout) or after an incident/near miss. Otherwise set a sensible review date (e.g., annually)."
         }
       ]
+    },
+    {
+      "slug": "coshh",
+      "title": "COSHH",
+      "intro": "Control of Substances Hazardous to Health (COSHH) explained with practical assessments, controls and templates.",
+      "startHere": ["coshh-assessment-uk-basics"],
+      "topTemplates": ["coshh-assessment-template"],
+      "faq": [
+        {
+          "q": "Is COSHH only for ‘chemicals’?",
+          "a": "No. COSHH includes dusts, fumes, vapours, mists, biological agents, and substances created by a process (e.g., welding fume, wood dust)."
+        }
+      ]
+    },
+    {
+      "slug": "riddor",
+      "title": "RIDDOR & Incident Reporting",
+      "intro": "What must be reported under RIDDOR, how to keep records, and how to run a sensible investigation.",
+      "startHere": ["riddor-uk-explained"],
+      "topTemplates": ["incident-report-template"],
+      "faq": [
+        {
+          "q": "Who reports under RIDDOR?",
+          "a": "Typically the employer / person in control of the work premises or activity. Set this responsibility clearly to avoid missed reports."
+        }
+      ]
     }
   ]
 }

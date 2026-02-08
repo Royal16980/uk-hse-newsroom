@@ -20,6 +20,51 @@
         "Record and communicate",
         "Review after changes/incidents"
       ]
+    },
+    {
+      "slug": "coshh-assessment-uk-basics",
+      "title": "COSHH Assessment (UK): How to Do It Properly (Without Overcomplicating It)",
+      "excerpt": "A practical COSHH assessment flow: substances, exposure routes, controls, and what good looks like on site.",
+      "topic": "coshh",
+      "updated": "2026-02-08",
+      "readingMinutes": 10,
+      "body": [
+        "A COSHH assessment focuses on health risks from substances (including dusts, fumes, vapours, biological agents, and products from processes).",
+        "Good COSHH is mostly: knowing what the substance is, how people are exposed, and putting controls in place that are actually used.",
+        "This guide gives you a simple structure and links to a COSHH template pack."
+      ],
+      "checklist": [
+        "List substances/processes that create exposure",
+        "Check SDS and identify hazards",
+        "Identify who is exposed and how (inhalation/skin/ingestion)",
+        "Decide controls (substitution/LEV/containment/procedures/PPE)",
+        "Define storage/handling/spill response",
+        "Training + supervision",
+        "Health surveillance if needed",
+        "Review after changes"
+      ]
+    },
+    {
+      "slug": "riddor-uk-explained",
+      "title": "RIDDOR Explained (UK): What Must Be Reported and How",
+      "excerpt": "A plain-English guide to what’s reportable, who reports, time limits, and how to avoid common mistakes.",
+      "topic": "riddor",
+      "updated": "2026-02-08",
+      "readingMinutes": 9,
+      "body": [
+        "RIDDOR is the UK system for reporting certain injuries, diseases and dangerous occurrences.",
+        "The easiest way to stay compliant is to build a simple decision process: what happened → is it reportable → who reports → keep records.",
+        "This guide includes a quick “is this reportable?” checklist and an incident record template."
+      ],
+      "checklist": [
+        "Record the facts immediately (who/what/when/where)",
+        "Check if it’s a specified injury, over-7-day, or dangerous occurrence",
+        "Confirm who is the responsible person",
+        "Report within required time limits",
+        "Keep internal records and complete investigation",
+        "Implement corrective actions",
+        "Review your risk assessment and training"
+      ]
     }
   ]
 }

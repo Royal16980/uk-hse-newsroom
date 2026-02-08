@@ -1,0 +1,161 @@
+{
+  "name": "UK HSE Hub — RSS to content/news.json (v1)",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours"
+            }
+          ]
+        }
+      },
+      "id": "cron_trigger",
+      "name": "Every hour",
+      "type": "n8n-nodes-base.cron",
+      "typeVersion": 1,
+      "position": [
+        240,
+        280
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://www.hse.gov.uk/rss/news.xml",
+        "options": {}
+      },
+      "id": "rss_hse_news",
+      "name": "RSS: HSE News",
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1,
+      "position": [
+        520,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://www.hse.gov.uk/rss/pressrelease.xml",
+        "options": {}
+      },
+      "id": "rss_hse_press",
+      "name": "RSS: HSE Press Releases",
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1,
+      "position": [
+        520,
+        360
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineAll"
+      },
+      "id": "merge",
+      "name": "Merge feeds",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2,
+      "position": [
+        760,
+        280
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Normalize RSS items into a simple schema for uk-hse-hub/content/news.json\n\nfunction isoDate(d) {\n  if (!d) return new Date().toISOString().slice(0,10);\n  const dt = new Date(d);\n  if (Number.isNaN(dt.getTime())) return new Date().toISOString().slice(0,10);\n  return dt.toISOString().slice(0,10);\n}\n\nconst items = [];\nfor (const i of $input.all()) {\n  const j = i.json;\n  const url = j.link || j.url || '';\n  const title = j.title || 'Untitled';\n  const published = isoDate(j.isoDate || j.pubDate || j.published || j.date);\n  const source = 'HSE';\n  items.push({\n    id: (url || title).slice(0,120),\n    title,\n    url,\n    source,\n    published,\n    summary: j.contentSnippet || j.content || j.summary || '',\n    actions: []\n  });\n}\n\n// de-dupe by URL\nconst seen = new Set();\nconst deduped = [];\nfor (const it of items) {\n  const key = it.url || it.title;\n  if (seen.has(key)) continue;\n  seen.add(key);\n  deduped.push(it);\n}\n\n// newest first\ndeduped.sort((a,b) => (a.published < b.published ? 1 : -1));\n\n// cap size\nconst capped = deduped.slice(0, 50);\n\nreturn [{ json: { items: capped } }];"
+      },
+      "id": "code_normalize",
+      "name": "Normalize → news.json",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1000,
+        280
+      ]
+    },
+    {
+      "parameters": {
+        "fileName": "C:/Users/ADMIN/clawd/uk-hse-hub/content/news.json",
+        "dataPropertyName": "=JSON.stringify($json, null, 2)",
+        "options": {}
+      },
+      "id": "write_file",
+      "name": "Write file (local)",
+      "type": "n8n-nodes-base.writeBinaryFile",
+      "typeVersion": 1,
+      "position": [
+        1240,
+        280
+      ]
+    }
+  ],
+  "connections": {
+    "Every hour": {
+      "main": [
+        [
+          {
+            "node": "RSS: HSE News",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "RSS: HSE Press Releases",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "RSS: HSE News": {
+      "main": [
+        [
+          {
+            "node": "Merge feeds",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "RSS: HSE Press Releases": {
+      "main": [
+        [
+          {
+            "node": "Merge feeds",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge feeds": {
+      "main": [
+        [
+          {
+            "node": "Normalize → news.json",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalize → news.json": {
+      "main": [
+        [
+          {
+            "node": "Write file (local)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "versionId": "v1",
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

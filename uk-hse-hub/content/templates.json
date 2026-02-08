@@ -18,6 +18,47 @@
         "fields": ["email"],
         "consentText": "We’ll email the download link and occasional practical updates. Unsubscribe anytime."
       }
+    },
+    {
+      "slug": "coshh-assessment-template",
+      "title": "Free COSHH Assessment Template (UK)",
+      "excerpt": "COSHH assessment template with a sensible structure for real workplaces (not paperwork theatre).",
+      "topic": "coshh",
+      "format": "DOCX/PDF",
+      "updated": "2026-02-08",
+      "includes": [
+        "Substance/process + SDS reference",
+        "Exposure routes + who is exposed",
+        "Controls (hierarchy) + PPE",
+        "Storage/handling/spills",
+        "Health surveillance (if applicable)",
+        "Review date"
+      ],
+      "gate": {
+        "enabled": true,
+        "fields": ["email"],
+        "consentText": "We’ll email the download link and occasional practical updates. Unsubscribe anytime."
+      }
+    },
+    {
+      "slug": "incident-report-template",
+      "title": "Accident & Incident Report Form (UK)",
+      "excerpt": "A clear incident report form for internal records, investigations, and RIDDOR decision-making.",
+      "topic": "riddor",
+      "format": "DOCX/PDF",
+      "updated": "2026-02-08",
+      "includes": [
+        "Immediate facts + witnesses",
+        "Injury/ill-health details",
+        "Root cause prompts",
+        "Corrective actions + owners",
+        "RIDDOR decision field"
+      ],
+      "gate": {
+        "enabled": true,
+        "fields": ["email"],
+        "consentText": "We’ll email the download link and occasional practical updates. Unsubscribe anytime."
+      }
     }
   ]
 }

@@ -1,0 +1,17 @@
+{
+  "items": [
+    {
+      "id": "seed-2026-02-08",
+      "title": "Welcome: UK HSE Hub is live in draft mode",
+      "url": "https://example.com",
+      "source": "UK HSE Hub",
+      "published": "2026-02-08",
+      "topic": "risk-assessment",
+      "summary": "This is a placeholder item. Automation will populate this feed from reputable UK sources.",
+      "actions": [
+        "Subscribe to the newsletter for weekly practical tips",
+        "Browse templates for ready-to-use documents"
+      ]
+    }
+  ]
+}
