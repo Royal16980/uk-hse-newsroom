@@ -31,6 +31,7 @@ Things like:
 ## n8n
 - Base URL: https://n8n.srv1246730.hstgr.cloud
 - API key file: C:\Users\ADMIN\clawd\n8n_api_key.txt (treat as secret; rotate if exposed)
+- Gotcha (webhooks): If a workflow is created/updated via API, Webhook trigger nodes may be missing `webhookId` → production URL returns 404 "not registered" even when active. Fix by ensuring Webhook node has `webhookId` and reactivating workflow.
 
 ## Why Separate?
 
