@@ -29,3 +29,27 @@ Goal was to answer user’s “brain use and cost efficiency” question with co
 
 ---
 
+## [ERR-20260209-001] openclaw status / gateway status hang
+
+**Logged**: 2026-02-09T19:35:00Z
+**Priority**: low
+**Status**: pending
+**Area**: infra
+
+### Summary
+`openclaw status` and `openclaw gateway status` appeared to hang when run via the OpenClaw `exec` tool (PowerShell/non-PTY). Had to kill the processes.
+
+### Context
+This blocks quick health checks inside the automated daily sweep.
+
+### Suggested Fix
+- Try running these commands with `pty=true` (TTY) and/or add a `timeout` wrapper.
+- If the CLI is doing interactive rendering, look for a `--json` or `--no-tty` flag.
+- If still hanging, rely on: (a) `session_status` for current session usage, and (b) Windows Task Scheduler / service status for gateway liveness.
+
+### Metadata
+- Reproducible: likely
+- Tags: openclaw, status, cli, hang
+
+---
+
