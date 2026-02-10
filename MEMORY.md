@@ -29,7 +29,20 @@
 - OpenClaw CLI (`openclaw status`, `openclaw gateway status`) hangs via exec — use `session_status` instead.
 - Windows exec: use `;` not `&&`/`||` in PowerShell.
 
+## Cost Discipline
+- **Opus is for thinking, not typing.** Don't burn premium tokens on shell commands, API checks, or grunt work.
+- Delegate investigative/diagnostic tasks to sub-agents (coder/research on cheaper models).
+- Opus should: oversee, decide, communicate with Royal, handle complex reasoning.
+- Opus should NOT: run 10 sequential PowerShell commands, parse API responses, do health checks.
+
+## Critical Behaviour Rule
+- **ACT, DON'T ASK.** Royal has flagged lack of proactiveness 3+ times. This is final warning territory.
+- When ops reports problems → dispatch fixes immediately, don't summarise to Royal.
+- When there are options → pick the best one and execute, tell Royal what you did after.
+- The only time to ask: irreversible decisions, spending money, or needs Royal's credentials/secrets.
+
 ## Lessons
 - Model deprecations can silently break everything (2026-02-10 incident: opus-4-5 → opus-4-6).
 - Always check ALL cron jobs + sub-agent configs after a model change.
 - n8n Code nodes on Hostinger VPS block env var access.
+- Royal called out cost waste (2026-02-10): stop doing sub-agent work on Opus.
