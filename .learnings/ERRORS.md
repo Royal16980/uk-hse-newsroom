@@ -53,3 +53,31 @@ This blocks quick health checks inside the automated daily sweep.
 
 ---
 
+## [ERR-20260210-001] Model deprecation loop — claude-opus-4-5 retired
+
+**Logged**: 2026-02-10T08:00:00Z
+**Priority**: critical
+**Status**: resolved
+**Area**: infra
+
+### Summary
+Anthropic retired `claude-opus-4-5` overnight. All API calls returned "Claude Opus 4.5 is no longer available. Please switch to Claude Opus 4.6." for 1+ hour. Main session, cron jobs, and sub-agents all affected.
+
+### Root Cause
+- Primary model deprecated with no warning.
+- Error was returned as model text output (not HTTP error), so OpenClaw didn't trigger fallback models.
+- Cron job also broken: `openai-codex/gpt-5.2` returned "model not allowed".
+
+### Fix
+- Config wizard updated primary to `anthropic/claude-opus-4-6`.
+- Manually updated self-improvement cron to `anthropic/claude-sonnet-4-5`.
+
+### Prevention
+- After any model deprecation, immediately check ALL cron jobs + sub-agent configs for stale model refs.
+- Text-level "model unavailable" responses should be treated as errors, not parroted to the user.
+
+### Metadata
+- Reproducible: N/A (one-time deprecation)
+- Tags: anthropic, model-deprecation, outage, cron
+
+---
