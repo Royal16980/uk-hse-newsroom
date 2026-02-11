@@ -108,6 +108,13 @@ Reactions are lightweight social signals. Humans use them constantly — they sa
 - After resolving any non-obvious incident (errors, user correction, external API quirks), log it to `./.learnings/` (LEARNINGS.md or ERRORS.md) and promote repeat offenders to TOOLS.md/AGENTS.md.
 - Prefer: reproduce → isolate cause → fix → add regression test/validation step.
 
+### Autonomy / operational decision-making
+- Default to the best decision **without** routing questions (e.g., “A or B?”) unless:
+  - the action is irreversible/destructive,
+  - it’s high-risk/high-impact,
+  - or it requires user-provided secrets/credentials.
+- When you do choose autonomously (models, delegation, routing), leave a short written breadcrumb in `memory/YYYY-MM-DD.md` and/or `.learnings/`.
+
 Skills provide your tools. When you need one, check its `SKILL.md`. Keep local notes (camera names, SSH details, voice preferences) in `TOOLS.md`.
 
 **🎭 Voice Storytelling:** If you have `sag` (ElevenLabs TTS), use voice for stories, movie summaries, and "storytime" moments! Way more engaging than walls of text. Surprise people with funny voices.

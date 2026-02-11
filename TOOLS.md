@@ -36,6 +36,11 @@ Things like:
 ## Shell / exec (Windows)
 - The `exec` tool runs commands in **PowerShell**. Don’t use `&&` / `||` separators; use `;` and `if (...) { ... } else { ... }`.
 
+## OpenClaw CLI (gateway/status)
+- Gotcha: `openclaw status` / `openclaw gateway status` may **hang** when run via the `exec` tool, sometimes emitting terminal control codes.
+- Mitigation to try first: run with `pty=true` and a short `timeout`.
+- If it still hangs: use alternative liveness checks (Task Scheduler state, process list, listening ports, or gateway logs) rather than blocking the sweep.
+
 ## Why Separate?
 
 Skills are shared. Your setup is yours. Keeping them apart means you can update skills without losing your notes, and share skills without leaking your infrastructure.
